@@ -1,7 +1,8 @@
 name: 'Setup CDash Status'
 description: 'Sets up CDash status link for a GitHub commit'
-icon: box
-color: red
+branding:
+  icon: box
+  color: red
 inputs:
   github-token:
     description: 'GitHub token for API access'
