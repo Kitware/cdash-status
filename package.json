@@ -1,0 +1,28 @@
+{
+  "name": "setup-cdash",
+  "version": "0.0.0-development",
+  "description": "GitHub Action that sets up CDash status for your commits",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicentebolea/setup-cdash.git"
+  },
+  "keywords": [
+    "cdash",
+    "github",
+    "actions",
+    "github-actions",
+    "status"
+  ],
+  "author": "Vicente Adolfo Bolea Sanchez",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "semantic-release": "^24.2.3"
+  }
+}
