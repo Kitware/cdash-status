@@ -6,7 +6,6 @@ readonly API_BASE="https://api.github.com/repos/${GITHUB_REPOSITORY}"
 readonly TOKEN="${CI_GITHUB_ROBOT_TOKEN}"
 readonly COMMIT="${COMMIT_SHA}"
 readonly CDASH_PROJECT="${CDASH_PROJECT}"
-readonly CDASH_FILTER_VALUE="${CDASH_FILTER_VALUE:-61}"
 
 #==============================================================================
 
@@ -14,7 +13,7 @@ function build_status_body() {
   cat <<EOF
 {
   "state": "success",
-  "target_url": "https://open.cdash.org/index.php?compare1=${CDASH_FILTER_VALUE}&filtercount=1&field1=revision&project=${CDASH_PROJECT}&showfilters=0&limit=100&value1=${COMMIT}&showfeed=0",
+  "target_url": "https://open.cdash.org/index.php?compare1=61&filtercount=1&field1=revision&project=${CDASH_PROJECT}&showfilters=0&limit=100&value1=${COMMIT}&showfeed=0",
   "description": "Build and test results available on CDash",
   "context": "cdash"
 }

@@ -10,10 +10,6 @@ inputs:
   project:
     description: 'CDash project name'
     required: true
-  filter-value:
-    description: 'CDash filter value (compare1 parameter)'
-    required: false
-    default: '61'
   repository:
     description: 'GitHub repository in format owner/repo'
     required: true
@@ -27,7 +23,6 @@ runs:
         echo "CI_GITHUB_ROBOT_TOKEN=${{ inputs.github-token }}" >> $GITHUB_ENV
         echo "COMMIT_SHA=${{ inputs.commit-sha }}" >> $GITHUB_ENV
         echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
-        echo "CDASH_FILTER_VALUE=${{ inputs.filter-value }}" >> $GITHUB_ENV
         echo "GITHUB_REPOSITORY=${{ inputs.repository }}" >> $GITHUB_ENV
 
     - name: Run CDash status script

@@ -23,7 +23,6 @@ A GitHub Action that sets up CDash status for your commits.
 | github-token  | GitHub token for API access           | Yes      | -                |
 | commit-sha    | The commit SHA to set status for      | Yes      | -                |
 | project       | CDash project name                    | Yes      | -                |
-| filter-value  | CDash filter value (compare1 param)   | No       | 61               |
 | repository    | GitHub repository (owner/repo format) | Yes      | -                |
 
 ## Example workflow
@@ -63,7 +62,7 @@ jobs:
 ## Semantic Versioning
 
 This project follows [Semantic Versioning](https://semver.org/).
-Releases are automatically created when commits are merged to the `main` branch.
+Releases are automatically created when commits are merged to the `master` branch.
 
 - `fix:` commits trigger a PATCH release (1.0.x)
 - `feat:` commits trigger a MINOR release (1.x.0)

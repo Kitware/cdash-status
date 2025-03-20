@@ -15,4 +15,3 @@ jobs:
           commit-sha: ${{ github.sha }}
           project: "TestProject"
           repository: ${{ github.repository }}
-          filter-value: "42"
