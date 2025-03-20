@@ -10,20 +10,20 @@ A GitHub Action that sets up CDash status for your commits.
 ```yaml
 - uses: vicentebolea/setup-cdash@v1
   with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    commit-sha: ${{ github.sha }}
     project: "MyProject"
-    repository: ${{ github.repository }}
 ```
 
 ## Inputs
 
 | Input         | Description                           | Required | Default          |
 |---------------|---------------------------------------|----------|------------------|
-| github-token  | GitHub token for API access           | Yes      | -                |
-| commit-sha    | The commit SHA to set status for      | Yes      | -                |
+| github-token  | GitHub token for API access           | No       | github.token     |
 | project       | CDash project name                    | Yes      | -                |
-| repository    | GitHub repository (owner/repo format) | Yes      | -                |
+| repository    | GitHub repository in format owner/repo| No       | github.repository|
+
+The commit SHA is automatically detected based on the event type:
+- For pull requests: `github.event.pull_request.head.sha` is used
+- For other events: `github.sha` is used
 
 ## Example workflow
 
@@ -41,10 +41,7 @@ jobs:
       - name: Setup CDash Status
         uses: vicentebolea/setup-cdash@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-sha: ${{ github.sha }}
           project: "MyProject"
-          repository: ${{ github.repository }}
 ```
 
 ## Contributing

@@ -1,8 +1,9 @@
 name: Release
 on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: ["Test Setup CDash Action"]
+    branches: [master]
+    types: [completed]
 
 permissions:
   contents: write
@@ -12,6 +13,7 @@ permissions:
 jobs:
   release:
     name: Semantic Release
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

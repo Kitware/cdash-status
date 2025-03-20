@@ -6,25 +6,31 @@ branding:
 inputs:
   github-token:
     description: 'GitHub token for API access'
-    required: true
-  commit-sha:
-    description: 'The commit SHA to set status for'
-    required: true
+    required: false
+    default: ${{ github.token }}
   project:
     description: 'CDash project name'
     required: true
   repository:
     description: 'GitHub repository in format owner/repo'
-    required: true
+    required: false
+    default: ${{ github.repository }}
 
 runs:
   using: "composite"
   steps:
+    - shell: bash
+      if: ${{ github.event_name == 'pull_request_target' }}
+      run: echo "COMMIT_SHA=${{ github.event.pull_request.head.sha }}" >> "${GITHUB_ENV}"
+
+    - shell: bash
+      if: ${{ github.event_name == 'push' }}
+      run: echo "COMMIT_SHA=${{ github.sha }}" >> "${GITHUB_ENV}"
+
     - name: Set environment variables
       shell: bash
       run: |
         echo "CI_GITHUB_ROBOT_TOKEN=${{ inputs.github-token }}" >> $GITHUB_ENV
-        echo "COMMIT_SHA=${{ inputs.commit-sha }}" >> $GITHUB_ENV
         echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
         echo "GITHUB_REPOSITORY=${{ inputs.repository }}" >> $GITHUB_ENV
 
