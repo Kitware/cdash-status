@@ -1,11 +1,11 @@
 {
-  "name": "setup-cdash",
-  "version": "1.1.0",
+  "name": "cdash-status",
+  "version": "0.0.1",
   "description": "GitHub Action that sets up CDash status for your commits",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vicentebolea/setup-cdash.git"
+    "url": "https://github.com/vicentebolea/cdash-status.git"
   },
   "keywords": [
     "cdash",

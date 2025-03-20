@@ -1,14 +1,14 @@
-# Setup CDash Status
+# CDash Status
 
-A GitHub Action that sets up CDash status for your commits.
+A GitHub Action that sets CDash status for your commits.
 
-[![Release](https://img.shields.io/github/v/release/vicentebolea/setup-cdash)](https://github.com/vicentebolea/setup-cdash/releases)
+[![Release](https://img.shields.io/github/v/release/vicentebolea/cdash-status)](https://github.com/vicentebolea/cdash-status/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Usage
 
 ```yaml
-- uses: vicentebolea/setup-cdash@v1
+- uses: vicentebolea/cdash-status@v1
   with:
     project: "MyProject"
 ```
@@ -38,8 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup CDash Status
-        uses: vicentebolea/setup-cdash@v1
+      - name: CDash Status
+        uses: vicentebolea/cdash-status@v1
         with:
           project: "MyProject"
 ```

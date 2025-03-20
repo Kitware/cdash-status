@@ -1,5 +1,5 @@
-name: 'Setup CDash Status'
-description: 'Sets up CDash status link for a GitHub commit'
+name: 'CDash Status'
+description: 'Sets CDash status link for a GitHub commit'
 branding:
   icon: box
   color: red
