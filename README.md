@@ -59,11 +59,15 @@ jobs:
 ## Semantic Versioning
 
 This project follows [Semantic Versioning](https://semver.org/).
-Releases are automatically created when commits are merged to the `master` branch.
+Releases are automatically created when commits are merged to the `release` branch.
 
 - `fix:` commits trigger a PATCH release (1.0.x)
 - `feat:` commits trigger a MINOR release (1.x.0)
 - `feat!:` or `fix!:` or any commit with `BREAKING CHANGE:` in the footer triggers a MAJOR release (x.0.0)
+
+## Authors
+
+- Vicente Bolea @ Kitware
 
 ## License
 
