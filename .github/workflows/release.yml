@@ -1,9 +1,8 @@
 name: Release
 on:
-  workflow_run:
-    workflows: ["Test Setup CDash Action"]
-    branches: [master]
-    types: [completed]
+  push:
+    branches:
+      - release
 
 permissions:
   contents: write
@@ -13,7 +12,6 @@ permissions:
 jobs:
   release:
     name: Semantic Release
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,16 +20,14 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4.2.0
         with:
-          node-version: '20'
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Release
+          semantic_version: 24.2.3
+          branches: release
+          extra_plugins: |
+            @semantic-release/changelog@6.0.3
+            @semantic-release/git@10.0.1
+            @semantic-release/exec@7.0.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
