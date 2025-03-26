@@ -17,7 +17,7 @@ A GitHub Action that sets CDash status for your commits.
 
 | Input         | Description                           | Required | Default          |
 |---------------|---------------------------------------|----------|------------------|
-| github-token  | GitHub token for API access           | No       | github.token     |
+| github_token  | GitHub token for API access           | No       | github.token     |
 | project       | CDash project name                    | Yes      | -                |
 | repository    | GitHub repository in format owner/repo| No       | github.repository|
 
