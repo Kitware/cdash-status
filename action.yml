@@ -7,7 +7,7 @@ inputs:
   project:
     description: 'CDash project name'
     required: true
-  github-token:
+  github_token:
     description: 'GitHub token for API access'
     required: false
     default: ${{ github.token }}
@@ -38,11 +38,11 @@ runs:
     - name: Set environment variables
       shell: bash
       run: |
-        echo "CI_GITHUB_ROBOT_TOKEN=${{ inputs.github-token }}" >> $GITHUB_ENV
-        echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
-        echo "GITHUB_REPOSITORY=${{ inputs.repository }}" >> $GITHUB_ENV
-        echo "CDASH_STATUS_NAME=${{ inputs.status_name }}" >> $GITHUB_ENV
         echo "CDASH_BASE_URL=${{ inputs.base_url }}" >> $GITHUB_ENV
+        echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
+        echo "GITHUB_REPOSITORY=${{ inputs.repository}}" >> $GITHUB_ENV
+        echo "GITHUB_STATUS_NAME=${{ inputs.status_name }}" >> $GITHUB_ENV
+        echo "GITHUB_TOKEN=${{ inputs.github_token }}" >> $GITHUB_ENV
 
     - name: Run CDash status script
       shell: bash
