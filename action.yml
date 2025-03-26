@@ -4,17 +4,25 @@ branding:
   icon: box
   color: red
 inputs:
+  project:
+    description: 'CDash project name'
+    required: true
   github-token:
     description: 'GitHub token for API access'
     required: false
     default: ${{ github.token }}
-  project:
-    description: 'CDash project name'
-    required: true
   repository:
     description: 'GitHub repository in format owner/repo'
     required: false
     default: ${{ github.repository }}
+  base_url:
+    description: 'CDASH site base URL'
+    required: false
+    default: https://open.cdash.org
+  status_name:
+    description: 'Github status check name'
+    required: false
+    default: cdash
 
 runs:
   using: "composite"
@@ -33,6 +41,8 @@ runs:
         echo "CI_GITHUB_ROBOT_TOKEN=${{ inputs.github-token }}" >> $GITHUB_ENV
         echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
         echo "GITHUB_REPOSITORY=${{ inputs.repository }}" >> $GITHUB_ENV
+        echo "CDASH_STATUS_NAME=${{ inputs.status_name }}" >> $GITHUB_ENV
+        echo "CDASH_BASE_URL=${{ inputs.base_url }}" >> $GITHUB_ENV
 
     - name: Run CDash status script
       shell: bash
