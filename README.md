@@ -49,10 +49,17 @@ jobs:
 1. Fork the repository
 2. Create a feature branch: `git checkout -b my-new-feature`
 3. Commit your changes using [Conventional Commits](https://www.conventionalcommits.org/):
-   - `feat: add new feature`
-   - `fix: fix a bug`
-   - `docs: update documentation`
-   - `chore: maintenance tasks`
+   - `feat`: add a new feature (MINOR release)
+   - `fix`: fix a bug (PATCH release)
+   - `docs`: documentation changes only
+   - `style`: changes that don't affect code meaning (formatting, whitespace)
+   - `refactor`: code change that neither fixes a bug nor adds a feature
+   - `perf`: performance improvements
+   - `test`: adding or updating tests
+   - `build`: changes to build system or dependencies
+   - `ci`: changes to CI configuration
+   - `chore`: other changes that don't modify src or test files
+   - Adding `BREAKING CHANGE:` to the footer triggers a MAJOR release
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
 
@@ -63,11 +70,11 @@ Releases are automatically created when commits are merged to the `release` bran
 
 - `fix:` commits trigger a PATCH release (1.0.x)
 - `feat:` commits trigger a MINOR release (1.x.0)
-- `feat!:` or `fix!:` or any commit with `BREAKING CHANGE:` in the footer triggers a MAJOR release (x.0.0)
+- Any commit with `BREAKING CHANGE:` in the footer triggers a MAJOR release (x.0.0)
 
 ## Authors
 
-- Vicente Bolea @ Kitware
+- Vicente Bolea <vicente.bolea@kitware.com>
 
 ## License
 
