@@ -1,0 +1,27 @@
+name: Merge Release to Master
+
+on:
+  push:
+    branches:
+      - 'release'
+
+jobs:
+  merge-release-to-master:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Merge Release into Master
+        run: |
+          git checkout master
+          git merge --no-ff release -m "Merge release branch into master"
+          git push origin master
