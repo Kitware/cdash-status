@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/vicentebolea/cdash-status/compare/v1.3.0...v1.4.0) (2025-04-02)
+
+
+### Features
+
+* organized arguments ([c027a50](https://github.com/vicentebolea/cdash-status/commit/c027a50b11df26d7958e4426a683dec0dc4ad3bf))
+
 # [1.3.0](https://github.com/vicentebolea/cdash-status/compare/v1.2.2...v1.3.0) (2025-03-26)
 
 
