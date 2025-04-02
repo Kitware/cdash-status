@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/vicentebolea/cdash-status/compare/v1.4.0...v2.0.0) (2025-04-02)
+
+
+### Features
+
+* trigger a new major release ([34b28bf](https://github.com/vicentebolea/cdash-status/commit/34b28bf0f66bd4603cbf19475f60f243a3a2f772))
+
+
+### BREAKING CHANGES
+
+* trigger a new release
+
 # [1.4.0](https://github.com/vicentebolea/cdash-status/compare/v1.3.0...v1.4.0) (2025-04-02)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "cdash-status",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "GitHub Action that sets up CDash status for your commits",
   "main": "index.js",
   "repository": {
