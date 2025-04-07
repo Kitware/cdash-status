@@ -2,13 +2,13 @@
 
 A GitHub Action that sets CDash status for your commits.
 
-[![Release](https://img.shields.io/github/v/release/vicentebolea/cdash-status)](https://github.com/vicentebolea/cdash-status/releases)
+[![Release](https://img.shields.io/github/v/release/Kitware/cdash-status)](https://github.com/Kitware/cdash-status/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Usage
 
 ```yaml
-- uses: vicentebolea/cdash-status@v1
+- uses: Kitware/cdash-status@v1
   with:
     project: "MyProject"
 ```
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: CDash Status
-        uses: vicentebolea/cdash-status@v1
+        uses: Kitware/cdash-status@v1
         with:
           project: "MyProject"
 ```
