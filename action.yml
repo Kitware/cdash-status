@@ -28,7 +28,7 @@ runs:
   using: "composite"
   steps:
     - shell: bash
-      if: ${{ github.event_name == 'pull_request_target' }}
+      if: ${{ github.event_name == 'pull_request_target' || github.event_name == 'pull_request' }}
       run: echo "COMMIT_SHA=${{ github.event.pull_request.head.sha }}" >> "${GITHUB_ENV}"
 
     - shell: bash
