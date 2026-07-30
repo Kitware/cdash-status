@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eo pipefail
+
 readonly API_BASE="https://api.github.com/repos/${GITHUB_REPOSITORY}"
 
 function require_cmd() {
