@@ -75,7 +75,7 @@ if [ "true" == $(jq -re "all(. != \"${GITHUB_STATUS_NAME}\")" <<<"${statuses}") 
 
     if [ "false" == $(jq -r 'has("creator")') <<<"$response" ]; then
       echo "Failed to create status for '${API_BASE}/commits/${COMMIT_SHA}'"
-      echo "$response"
+      echo -e "Request returned:\n$response"
       exit 3
     fi
 else
