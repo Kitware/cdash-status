@@ -47,7 +47,7 @@ readonly statuses=$(jq -r '[.[].context] | @json' <<< $status_response)
 if [ -z "$statuses" ]; then
   echo "Failed to parse statuses for '${API_BASE}/commits/${COMMIT_SHA}'"
   echo -e "Request returned:\n$status_response"
-  exit 1
+  exit 2
 fi
 
 post_body="$(cat<<EOF
@@ -76,7 +76,7 @@ if [ "true" == $(jq -re "all(. != \"${GITHUB_STATUS_NAME}\")" <<<"${statuses}") 
     if [ "false" == $(jq -r 'has("creator")') <<<"$response" ]; then
       echo "Failed to create status for '${API_BASE}/commits/${COMMIT_SHA}'"
       echo "$response"
-      exit 1
+      exit 3
     fi
 else
   echo "No status updates needed."
