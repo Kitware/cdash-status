@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/kitware/cdash-status/compare/v2.0.0...v2.1.0) (2026-10-06)
+
+
+### Features
+
+* trigger minor release ([a04f4d1](https://github.com/kitware/cdash-status/commit/a04f4d171680de26f7a59f8d73f87b45c147ad7d))
+
 # [2.0.0](https://github.com/vicentebolea/cdash-status/compare/v1.4.0...v2.0.0) (2025-04-02)
 
 
