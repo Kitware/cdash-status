@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vicentebolea/cdash-status.git"
+    "url": "https://github.com/kitware/cdash-status.git"
   },
   "keywords": [
     "cdash",
