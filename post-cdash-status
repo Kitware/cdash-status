@@ -36,19 +36,7 @@ readonly status_response=$(
        -H "X-GitHub-Api-Version: 2022-11-28" \
        "${API_BASE}/commits/${COMMIT_SHA}/statuses")
 
-# The API returns an empty array if no statuses were found
-# This can happen if the COMMIT_SHA doesn't point to the head of the branch/PR
-if [ "true" == $(jq -r '. == []' <<<$status_response) ]; then
-  echo "No statuses found for '${API_BASE}/commits/${COMMIT_SHA}'"
-  exit 1
-fi
-
 readonly statuses=$(jq -r '[.[].context] | @json' <<< $status_response)
-if [ -z "$statuses" ]; then
-  echo "Failed to parse statuses for '${API_BASE}/commits/${COMMIT_SHA}'"
-  echo -e "Request returned:\n$status_response"
-  exit 2
-fi
 
 post_body="$(cat<<EOF
 {
