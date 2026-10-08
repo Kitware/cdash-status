@@ -68,5 +68,5 @@ readonly response=$(
 if [ "false" == $(jq -r 'has("creator")') <<<"$response" ]; then
   echo "Failed to create status for '${API_BASE}/commits/${COMMIT_SHA}'"
   echo -e "Request returned:\n$response"
-  exit 3
+  exit 1
 fi
