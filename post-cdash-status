@@ -65,7 +65,8 @@ readonly response=$(
        -H "X-GitHub-Api-Version: 2022-11-28" \
        -d "${post_body}" "${post_url}")
 
-if [ "false" == $(jq -r 'has("creator")') <<<"$response" ]; then
+readonly created=$($(jq -r 'has("creator")') <<<"$response")
+if [ "false" == "${created}" ]; then
   echo "Failed to create status for '${API_BASE}/commits/${COMMIT_SHA}'"
   echo -e "Request returned:\n$response"
   exit 1
