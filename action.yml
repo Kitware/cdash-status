@@ -42,8 +42,9 @@ runs:
         echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
         echo "GITHUB_REPOSITORY=${{ inputs.repository}}" >> $GITHUB_ENV
         echo "GITHUB_STATUS_NAME=${{ inputs.status_name }}" >> $GITHUB_ENV
-        echo "GITHUB_TOKEN=${{ inputs.github_token }}" >> $GITHUB_ENV
 
     - name: Run CDash status script
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       run: ${{ github.action_path }}/post-cdash-status

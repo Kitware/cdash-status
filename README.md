@@ -33,16 +33,30 @@ on:
   push:
   pull_request_target:
 
+permissions:
+  contents: read  # needed to list commit statuses on private repositories
+  statuses: write
+
 jobs:
   cdash:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: CDash Status
         uses: Kitware/cdash-status@v1
         with:
           project: "MyProject"
 ```
+
+The action does not need the repository contents, so do not add `actions/checkout`
+to this job. Checking out the pull request head under `pull_request_target`
+while holding a write token is insecure. The action posts statuses with
+`statuses: write`; `contents: read` is only needed to list existing statuses on
+private repositories. Declaring `permissions:` explicitly matters because some
+repositories default the token to write access for all scopes, and the block
+restricts it to just these two.
+
+Since the action runs with a write token, consider pinning it to a full commit
+SHA (`Kitware/cdash-status@<full-sha>`) instead of a tag such as `@v1`.
 
 ## Contributing
 
