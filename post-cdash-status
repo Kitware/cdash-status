@@ -26,6 +26,18 @@ require_env_var "GITHUB_REPOSITORY"
 require_env_var "GITHUB_STATUS_NAME"
 require_env_var "GITHUB_TOKEN"
 
+function require_match() {
+  if [[ ! "${!1}" =~ $2 ]]; then
+    echo "${1} env variable has invalid format"
+    exit 3
+  fi
+}
+
+#==============================================================================
+
+require_match "CDASH_BASE_URL" '^https?://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~/-]*)?$'
+require_match "GITHUB_STATUS_NAME" '^[A-Za-z0-9 ._:/-]+$'
+
 #==============================================================================
 
 readonly status_response=$(
@@ -36,24 +48,25 @@ readonly status_response=$(
        -H "X-GitHub-Api-Version: 2022-11-28" \
        "${API_BASE}/commits/${COMMIT_SHA}/statuses")
 
-readonly statuses=$(jq -r '[.[].context] | @json' <<< $status_response)
-
-if [ "true" != $(jq -re "all(. != \"${GITHUB_STATUS_NAME}\")" <<<"${statuses}") ]; then
+if ! jq -e --arg name "${GITHUB_STATUS_NAME}" \
+     '[.[].context] | all(. != $name)' <<<"${status_response}" > /dev/null; then
   echo "No status updates needed."
   exit 0;
 fi
 
 echo "Need to post a status for context ${GITHUB_STATUS_NAME}"
 
-post_body="$(cat<<EOF
-{
-  "state": "success",
-  "target_url": "${CDASH_BASE_URL}/index.php?compare1=61&filtercount=1&field1=revision&project=${CDASH_PROJECT}&showfilters=0&limit=100&value1=${COMMIT_SHA}&showfeed=0",
-  "description": "Build and test results available on CDash",
-  "context": "${GITHUB_STATUS_NAME}"
-}
-EOF
-)"
+post_body="$(jq -n \
+  --arg base "${CDASH_BASE_URL}" \
+  --arg project "${CDASH_PROJECT}" \
+  --arg sha "${COMMIT_SHA}" \
+  --arg name "${GITHUB_STATUS_NAME}" \
+  '{
+    state: "success",
+    target_url: "\($base)/index.php?compare1=61&filtercount=1&field1=revision&project=\($project | @uri)&showfilters=0&limit=100&value1=\($sha)&showfeed=0",
+    description: "Build and test results available on CDash",
+    context: $name
+  }')"
 
 post_url="${API_BASE}/statuses/${COMMIT_SHA}"
 

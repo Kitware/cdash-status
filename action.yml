@@ -35,16 +35,12 @@ runs:
       if: ${{ github.event_name == 'push' }}
       run: echo "COMMIT_SHA=${{ github.sha }}" >> "${GITHUB_ENV}"
 
-    - name: Set environment variables
-      shell: bash
-      run: |
-        echo "CDASH_BASE_URL=${{ inputs.base_url }}" >> $GITHUB_ENV
-        echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
-        echo "GITHUB_REPOSITORY=${{ inputs.repository}}" >> $GITHUB_ENV
-        echo "GITHUB_STATUS_NAME=${{ inputs.status_name }}" >> $GITHUB_ENV
-
     - name: Run CDash status script
       shell: bash
       env:
+        CDASH_BASE_URL: ${{ inputs.base_url }}
+        CDASH_PROJECT: ${{ inputs.project }}
+        GITHUB_REPOSITORY: ${{ inputs.repository }}
+        GITHUB_STATUS_NAME: ${{ inputs.status_name }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: ${{ github.action_path }}/post-cdash-status
