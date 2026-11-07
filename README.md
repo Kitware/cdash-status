@@ -15,11 +15,16 @@ A GitHub Action that sets CDash status for your commits.
 
 ## Inputs
 
-| Input         | Description                           | Required | Default          |
-|---------------|---------------------------------------|----------|------------------|
-| github_token  | GitHub token for API access           | No       | github.token     |
-| project       | CDash project name                    | Yes      | -                |
-| repository    | GitHub repository in format owner/repo| No       | github.repository|
+| Input        | Description                                  | Required | Default                | Allowed characters                                  |
+|--------------|----------------------------------------------|----------|------------------------|-----------------------------------------------------|
+| project      | CDash project name                           | Yes      | -                      | letters, digits, space, `.` `_` `-`                 |
+| github_token | GitHub token for API access                  | No       | `github.token`         | any (never parsed as code)                          |
+| base_url     | CDash site base URL                          | No       | `https://open.cdash.org` | `http(s)://host[:port][/path]`, path: letters, digits, `.` `_` `~` `/` `-` |
+| status_name  | GitHub status check name                     | No       | `cdash`                | letters, digits, space, `.` `_` `:` `/` `-`         |
+
+The status is always posted to the repository the workflow runs in
+(`github.repository`). Values outside the allowed characters make the action
+fail before any request is sent.
 
 The commit SHA is automatically detected based on the event type:
 - For pull requests: `github.event.pull_request.head.sha` is used
