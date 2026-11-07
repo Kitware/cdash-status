@@ -36,6 +36,9 @@ function require_match() {
 #==============================================================================
 
 require_match "CDASH_BASE_URL" '^https?://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~/-]*)?$'
+require_match "CDASH_PROJECT" '^[A-Za-z0-9 ._-]+$'
+require_match "COMMIT_SHA" '^[0-9a-f]{40}$'
+require_match "GITHUB_REPOSITORY" '^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$'
 require_match "GITHUB_STATUS_NAME" '^[A-Za-z0-9 ._:/-]+$'
 
 #==============================================================================
