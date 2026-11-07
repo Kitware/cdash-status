@@ -12,3 +12,20 @@ jobs:
         uses: ./
         with:
           project: "TestProject"
+      - name: Test injection attempts are rejected
+        run: tests/test-injection.sh
+
+      - name: Run the action with an injection payload
+        id: inject
+        continue-on-error: true
+        uses: ./
+        with:
+          project: "TestProject"
+          status_name: 'x"; touch injected; echo "'
+
+      - name: Check the payload was not executed
+        env:
+          OUTCOME: ${{ steps.inject.outcome }}
+        run: |
+          test ! -e injected
+          test "${OUTCOME}" = failure

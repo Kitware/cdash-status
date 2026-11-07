@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Fake curl for tests: GET returns no statuses, POST records the body.
+
+while [ $# -gt 0 ]; do
+  if [ "$1" == "-d" ]; then
+    printf '%s' "$2" > "${STUB_BODY}"
+    echo '{"creator":{}}'
+    exit 0
+  fi
+  shift
+done
+echo '[]'
