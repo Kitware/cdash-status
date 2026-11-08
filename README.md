@@ -32,23 +32,26 @@ The commit SHA is automatically detected based on the event type:
 
 ## Example workflow
 
+Put the workflow in its own file, `.github/workflows/cdash-status.yml`. Do not add this job to a workflow that does other work. The job runs with a `statuses: write` token under `pull_request_target`, so keeping it isolated in a dedicated workflow ensures no other job or step shares that trigger or token, which is what keeps this setup secure.
+
 ```yaml
-name: CDash Integration
+name: cdash-status
 on:
   push:
   pull_request_target:
 
 permissions:
-  statuses: write
+  contents: read
 
 jobs:
-  cdash:
+  create_cdash_status:
     runs-on: ubuntu-latest
+    permissions:
+      statuses: write
     steps:
-      - name: CDash Status
-        uses: Kitware/cdash-status@v3
+      - uses: Kitware/cdash-status@v3
         with:
-          project: "MyProject"
+          project: ADIOS
 ```
 
 The action does not need the repository contents, so do not add `actions/checkout`
