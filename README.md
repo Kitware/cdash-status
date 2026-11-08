@@ -1,6 +1,8 @@
 # CDash Status
 
-A GitHub Action that sets CDash status for your commits.
+A GitHub Action that sets CDash status for your commits including Pull Requests.
+
+<img width="781" height="44" alt="cdash_status" src="https://github.com/user-attachments/assets/3f798637-3db7-45d8-af13-88e2d715fd4f" />
 
 [![Release](https://img.shields.io/github/v/release/Kitware/cdash-status)](https://github.com/Kitware/cdash-status/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
