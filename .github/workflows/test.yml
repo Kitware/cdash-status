@@ -7,7 +7,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Test the action
         uses: ./
         with:
@@ -35,7 +35,7 @@ jobs:
   old-version-control:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run the old release with an injection payload
         uses: Kitware/cdash-status@v2.1.1
@@ -47,7 +47,7 @@ jobs:
       - name: Check the payload was executed
         run: test -e injected
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: v2.1.1
           path: old
