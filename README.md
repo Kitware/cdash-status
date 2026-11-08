@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: Kitware/cdash-status@v3
         with:
-          project: ADIOS
+          project: "Your CDASH project"
 ```
 
 The action does not need the repository contents, so do not add `actions/checkout`
