@@ -15,21 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Semantic Release
-        id: semantic
-        uses: cycjimmy/semantic-release-action@v4.2.0
+        uses: cycjimmy/semantic-release-action@ad51787758d9654d5a75150a89a6fa9b3ccef95e # v8.1.4
         with:
           semantic_version: 24.2.3
           branches: release
           extra_plugins: |
-            @semantic-release/changelog@6.0.3
-            @semantic-release/git@10.0.1
-            @semantic-release/exec@7.0.3
+            @semantic-release/changelog@b1044e17de7be4f0bf28c82b881b501e138a1b87
+            @semantic-release/git@b39d5c6adcd2eb1f921481d8cbb3d605e629b56a
+            @semantic-release/exec@a285bc576f59c5316bca5a7320dbf4255f952ff8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
