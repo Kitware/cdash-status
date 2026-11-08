@@ -21,6 +21,7 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
+        id: semantic
         uses: cycjimmy/semantic-release-action@v4.2.0
         with:
           semantic_version: 24.2.3
@@ -31,3 +32,14 @@ jobs:
             @semantic-release/exec@7.0.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update major version tag
+        if: steps.semantic.outputs.new_release_published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAJOR: ${{ steps.semantic.outputs.new_release_major_version }}
+          RELEASE_TAG: ${{ steps.semantic.outputs.new_release_git_tag }}
+        run: |
+          sha="$(git rev-list -n1 "${RELEASE_TAG}")"
+          gh api -X PATCH "repos/${GITHUB_REPOSITORY}/git/refs/tags/v${MAJOR}" -f sha="${sha}" -F force=true \
+            || gh api -X POST "repos/${GITHUB_REPOSITORY}/git/refs" -f ref="refs/tags/v${MAJOR}" -f sha="${sha}"
