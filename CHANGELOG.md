@@ -1,3 +1,20 @@
+# [3.0.0](https://github.com/kitware/cdash-status/compare/v2.1.1...v3.0.0) (2026-11-08)
+
+
+* fix!: remove the repository input and document allowed characters ([4df0425](https://github.com/kitware/cdash-status/commit/4df0425afd2d4a8a1e3d99b137d6270112fafcfd))
+
+
+### Bug Fixes
+
+* harden action and fix status creation check ([64da293](https://github.com/kitware/cdash-status/commit/64da293c0aa63be2ba004e60aa685deecba4ed04))
+* validate and safely pass base_url and status_name ([49b525b](https://github.com/kitware/cdash-status/commit/49b525bb2d00ad08ce8c5779c408cfd33eb150ea))
+* validate project, repository and commit sha ([096e691](https://github.com/kitware/cdash-status/commit/096e691fb5a4c6655ba515bd8565286175b91d40))
+
+
+### BREAKING CHANGES
+
+* the repository input was removed.
+
 ## [2.1.1](https://github.com/kitware/cdash-status/compare/v2.1.0...v2.1.1) (2026-10-08)
 
 
