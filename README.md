@@ -8,7 +8,7 @@ A GitHub Action that sets CDash status for your commits.
 ## Usage
 
 ```yaml
-- uses: Kitware/cdash-status@v1
+- uses: Kitware/cdash-status@v3
   with:
     project: "MyProject"
 ```
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: CDash Status
-        uses: Kitware/cdash-status@v1
+        uses: Kitware/cdash-status@v3
         with:
           project: "MyProject"
 ```
@@ -60,7 +60,7 @@ repositories default the token to write access for all scopes, and the block
 restricts it to just this one.
 
 Since the action runs with a write token, consider pinning it to a full commit
-SHA (`Kitware/cdash-status@<full-sha>`) instead of a tag such as `@v1`.
+SHA (`Kitware/cdash-status@<full-sha>`) instead of a tag such as `@v3`.
 
 ## Contributing
 
