@@ -5,22 +5,18 @@ branding:
   color: red
 inputs:
   project:
-    description: 'CDash project name'
+    description: 'CDash project name (allowed characters: letters, digits, space, . _ -)'
     required: true
   github_token:
-    description: 'GitHub token for API access'
+    description: 'GitHub token for API access (needs statuses: write)'
     required: false
     default: ${{ github.token }}
-  repository:
-    description: 'GitHub repository in format owner/repo'
-    required: false
-    default: ${{ github.repository }}
   base_url:
-    description: 'CDASH site base URL'
+    description: 'CDash site base URL, http(s)://host[:port][/path] (allowed path characters: letters, digits, . _ ~ / -)'
     required: false
     default: https://open.cdash.org
   status_name:
-    description: 'Github status check name'
+    description: 'GitHub status check name (allowed characters: letters, digits, space, . _ : / -)'
     required: false
     default: cdash
 
@@ -35,15 +31,11 @@ runs:
       if: ${{ github.event_name == 'push' }}
       run: echo "COMMIT_SHA=${{ github.sha }}" >> "${GITHUB_ENV}"
 
-    - name: Set environment variables
-      shell: bash
-      run: |
-        echo "CDASH_BASE_URL=${{ inputs.base_url }}" >> $GITHUB_ENV
-        echo "CDASH_PROJECT=${{ inputs.project }}" >> $GITHUB_ENV
-        echo "GITHUB_REPOSITORY=${{ inputs.repository}}" >> $GITHUB_ENV
-        echo "GITHUB_STATUS_NAME=${{ inputs.status_name }}" >> $GITHUB_ENV
-        echo "GITHUB_TOKEN=${{ inputs.github_token }}" >> $GITHUB_ENV
-
     - name: Run CDash status script
       shell: bash
+      env:
+        CDASH_BASE_URL: ${{ inputs.base_url }}
+        CDASH_PROJECT: ${{ inputs.project }}
+        GITHUB_STATUS_NAME: ${{ inputs.status_name }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       run: ${{ github.action_path }}/post-cdash-status

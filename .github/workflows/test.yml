@@ -7,8 +7,56 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Test the action
         uses: ./
         with:
           project: "TestProject"
+      - name: Test injection attempts are rejected
+        run: tests/test-injection.sh
+
+      - name: Run the action with an injection payload
+        id: inject
+        continue-on-error: true
+        uses: ./
+        with:
+          project: "TestProject"
+          status_name: 'x"; touch injected; echo "'
+
+      - name: Check the payload was not executed
+        env:
+          OUTCOME: ${{ steps.inject.outcome }}
+        run: |
+          test ! -e injected
+          test "${OUTCOME}" = failure
+
+  # Control: the same payload must still be injectable in the old release,
+  # otherwise the injection check above proves nothing.
+  old-version-control:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run the old release with an injection payload
+        uses: Kitware/cdash-status@v2.1.1
+        continue-on-error: true
+        with:
+          project: "TestProject"
+          status_name: 'x"; touch injected; echo "'
+
+      - name: Check the payload was executed
+        run: test -e injected
+
+      - uses: actions/checkout@v5
+        with:
+          ref: v2.1.1
+          path: old
+
+      - name: Injection tests must fail against the old release
+        run: |
+          cp -r tests old/
+          cd old
+          if ./tests/test-injection.sh; then
+            echo "Tests passed on the old release, they do not detect the issue"
+            exit 1
+          fi

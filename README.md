@@ -15,11 +15,16 @@ A GitHub Action that sets CDash status for your commits.
 
 ## Inputs
 
-| Input         | Description                           | Required | Default          |
-|---------------|---------------------------------------|----------|------------------|
-| github_token  | GitHub token for API access           | No       | github.token     |
-| project       | CDash project name                    | Yes      | -                |
-| repository    | GitHub repository in format owner/repo| No       | github.repository|
+| Input        | Description                                  | Required | Default                | Allowed characters                                  |
+|--------------|----------------------------------------------|----------|------------------------|-----------------------------------------------------|
+| project      | CDash project name                           | Yes      | -                      | letters, digits, space, `.` `_` `-`                 |
+| github_token | GitHub token for API access                  | No       | `github.token`         | any (never parsed as code)                          |
+| base_url     | CDash site base URL                          | No       | `https://open.cdash.org` | `http(s)://host[:port][/path]`, path: letters, digits, `.` `_` `~` `/` `-` |
+| status_name  | GitHub status check name                     | No       | `cdash`                | letters, digits, space, `.` `_` `:` `/` `-`         |
+
+The status is always posted to the repository the workflow runs in
+(`github.repository`). Values outside the allowed characters make the action
+fail before any request is sent.
 
 The commit SHA is automatically detected based on the event type:
 - For pull requests: `github.event.pull_request.head.sha` is used
@@ -33,16 +38,29 @@ on:
   push:
   pull_request_target:
 
+permissions:
+  statuses: write
+
 jobs:
   cdash:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: CDash Status
         uses: Kitware/cdash-status@v1
         with:
           project: "MyProject"
 ```
+
+The action does not need the repository contents, so do not add `actions/checkout`
+to this job. Checking out the pull request head under `pull_request_target`
+while holding a write token is insecure. The action only requires the
+`statuses: write` permission, which covers both listing and posting statuses.
+Declaring `permissions:` explicitly matters because some
+repositories default the token to write access for all scopes, and the block
+restricts it to just this one.
+
+Since the action runs with a write token, consider pinning it to a full commit
+SHA (`Kitware/cdash-status@<full-sha>`) instead of a tag such as `@v1`.
 
 ## Contributing
 
