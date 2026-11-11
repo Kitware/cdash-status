@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Run the old release with an injection payload
-        uses: Kitware/cdash-status@581310760cedd7b6feffdbf1fd9f3d24fecb74dc # v2.1.1
+        uses: Kitware/cdash-status@ce4d2626d91a2688403b80f123061074314e9b82 # v3.0.0
         continue-on-error: true
         with:
           project: "TestProject"
